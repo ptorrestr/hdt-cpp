@@ -1,0 +1,12 @@
+# C++ builds
+*.o
+*.so
+*.a
+*.out
+
+# Executables
+hdt-lib/tools/*
+hdt-lib/examples/*
+
+# Auto-generate CDS includes 
+libcds-v1.0.12/includes/*

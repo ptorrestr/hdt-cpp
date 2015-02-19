@@ -449,9 +449,13 @@ void PlainDictionary::lexicographicSort(ProgressListener *listener) {
     NOTIFY(listener, "Sorting dictionary", 0, 100);
     #pragma omp parallel sections if(objects.size()>100000)
     {
+	#pragma omp section
         { sort(predicates.begin(), predicates.end(), DictionaryEntry::cmpLexicographic); }
+	#pragma omp section
         { sort(shared.begin(), shared.end(), DictionaryEntry::cmpLexicographic); }
+	#pragma omp section
         { sort(subjects.begin(), subjects.end(), DictionaryEntry::cmpLexicographic); }
+	#pragma omp section
         { sort(objects.begin(), objects.end(), DictionaryEntry::cmpLexicographic); }
     }
 #else
@@ -477,9 +481,13 @@ void PlainDictionary::idSort() {
 #ifdef _OPENMP
     #pragma omp parallel sections
     {
+	#pragma omp section
         { sort(shared.begin(), shared.end(), DictionaryEntry::cmpID); }
+	#pragma omp section
         { sort(subjects.begin(), subjects.end(), DictionaryEntry::cmpID); }
+	#pragma omp section
         { sort(objects.begin(), objects.end(), DictionaryEntry::cmpID); }
+	#pragma omp section
         { sort(predicates.begin(), predicates.end(), DictionaryEntry::cmpID); }
     }
 #else

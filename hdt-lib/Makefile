@@ -9,12 +9,12 @@ LIBCDSPATH = ../libcds-v1.0.12
 #SERD_SUPPORT=true
 
 CPP=g++
-FLAGS=-O3 -Wno-deprecated
+FLAGS=-O3 -Wno-deprecated -fPIC
 INCLUDES=-I $(LIBCDSPATH)/includes/ -I /usr/local/include -I ./include -I /opt/local/include -I /usr/include
 LDFLAGS=
 DOXYGEN=doxygen
 DEFINES=
-LIB=$(LIBCDSPATH)/lib/libcds.a -L/usr/local/lib -lstdc++
+LIB=$(LIBCDSPATH)/lib/libcds.a -L/usr/local/lib -lstdc++ -lgomp
 
 ifeq ($(RAPTOR_SUPPORT), true)
 DEFINES:=$(DEFINES) -DUSE_RAPTOR
@@ -75,7 +75,7 @@ tools/%: tools/%.cpp libhdt.a
 	@echo " [HDT] Compiling tool $<"
 	@$(CPP) $(INCLUDES) $(FLAGS) $(DEFINES) $(LDFLAGS) $< -o $(patsubst %.cpp, % ,$<) libhdt.a ${LIB}
 
-tools: libhdt.a $(TOOLS)
+tools: libhdt.a libhdt.so $(TOOLS)
 
 examples/%: examples/%.cpp libhdt.a
 	@echo " [HDT] Compiling example $<"
@@ -97,6 +97,11 @@ libhdt.a: $(OBJECTS) $(HEADERS)
 	@echo " [HDT] Linking libhdt.a"
 	@rm -Rf libhdt.a
 	@ar rcs libhdt.a $(OBJECTS)
+
+libhdt.so: $(OBJECTS) $(HEADERS)
+	@echo " [HDT] Linking libhdt.so"
+	@rm -Rf libhdt.so
+	@$(CPP) -shared -Wl,-soname,libhdt.so -o libhdt.so $(INCLUDES) $(FLAGS) $(DEFINES) $(LDFLAGS) $(OBJECTS) $(LIB)
 
 doc:	
 	@echo " [HDT] Generating documentation"

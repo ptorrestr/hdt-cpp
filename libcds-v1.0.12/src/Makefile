@@ -2,13 +2,13 @@ OS := $(shell uname)
 
 # CPPFLAGS=-g3 -Wall -O0
 #-DVERBOSE
-CPPFLAGS=-O3 -Wall -DNDEBUG
+CPPFLAGS=-O3 -Wall -DNDEBUG -fPIC
 
 CPP=g++
 
 ifeq ($(OS), Darwin)
 CPP=clang++
-CPPFLAGS:=$(CPPFLAGS) -arch x86_64 -msse4.2
+CPPFLAGS:=$(CPPFLAGS) -arch x86_64 -msse4.2 -fPIC
 endif
 
 INCL=-I../includes/
@@ -37,7 +37,7 @@ OBJECTS=$(UTILS_OBJ) $(STATIC_OBJ)
 
 all:
 	${MAKE} pre
-	${MAKE} lib 
+	${MAKE} lib
 
 clean:
 	@echo " [CLN] Removing object files"
@@ -47,6 +47,12 @@ lib: pre $(OBJECTS)
 	@echo " [LIB] Packing the object files"
 	@rm -f ../lib/libcds.a
 	@ar rcs ../lib/libcds.a $(OBJECTS)
+
+lib2: pre $(OBJECTS)
+	@echo " [LIB] Linking libcds.so"
+	@rm -Rf ../lib/libcds.so
+	@$(CPP) -shared -Wl,-soname,libcds.so.1 -o libcds.so $(OBJECTS) -lc
+
 
 pre:
 	@echo " [HDR] Populating the includes folder"
