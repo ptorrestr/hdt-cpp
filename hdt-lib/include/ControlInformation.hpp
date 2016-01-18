@@ -29,8 +29,8 @@
  *
  */
 
-#ifndef CONTROLINFORMATION_H_
-#define CONTROLINFORMATION_H_
+#ifndef HDT_CONTROLINFORMATION_HPP_
+#define HDT_CONTROLINFORMATION_HPP_
 
 #include <stdint.h>
 #include <iostream>
@@ -97,7 +97,7 @@ public:
 	 * @param key
 	 * @return
 	 */
-	unsigned int getUint(std::string key);
+    uint64_t getUint(std::string key);
 
 	/**
 	 * Set a property of the ControlInformation
@@ -111,7 +111,7 @@ public:
 	 * @param key
 	 * @param value
 	 */
-	void setUint(std::string key, uint32_t value);
+    void setUint(std::string key, uint64_t value);
 
 	/** Clear the ControlInformation, removing all properties.
 	 */
@@ -119,9 +119,11 @@ public:
 
     void setType(ControlInformationType type);
 
+    bool isDefined(std::string key);
+
     ControlInformationType getType();
 };
 
 }
 
-#endif /* CONTROLINFORMATION_H_ */
+#endif /* HDT_CONTROLINFORMATION_HPP_ */

@@ -29,15 +29,15 @@
  *
  */
 
+#ifndef HDT_HEADER_HPP_
+#define HDT_HEADER_HPP_
 
-#ifndef HEADER_
-#define HEADER_
+#include "RDF.hpp"
+#include "ControlInformation.hpp"
+#include "HDTListener.hpp"
 
-#include <RDF.hpp>
-#include <ControlInformation.hpp>
 #include <iostream>
 #include <sstream>
-#include <HDTListener.hpp>
 
 namespace hdt {
 
@@ -59,7 +59,7 @@ public:
 	 *
 	 * @return
 	 */
-	virtual unsigned int getNumberOfElements()=0;
+    virtual size_t getNumberOfElements()=0;
 
 	/**
 	 * Search a Triple Pattern.
@@ -179,4 +179,4 @@ public:
 
 }
 
-#endif /* HEADER_HPP_ */
+#endif /* HDT_HEADER_HPP_ */

@@ -29,6 +29,8 @@
  *
  */
 
+#ifdef HAVE_CDS
+
 #include <HDTVocabulary.hpp>
 #include "HuffmanSequence.hpp"
 
@@ -118,9 +120,9 @@ void HuffmanSequence::save(std::ostream & output)
 	// Calculate size
 	unsigned int numElements = vectorPlain.size();
 	unsigned int encodedEntries = 1+pos/(sizeof(unsigned int)*8);
-	unsigned int bytes = 1+pos/8;
 
 #if 0
+	unsigned int bytes = 1+pos/8;
 	cout << "Total bits: " << pos << endl;
 	cout << "Total entries: " << encodedEntries << endl;
 	cout << "Total bytes: " << bytes << endl;
@@ -153,3 +155,6 @@ std::string HuffmanSequence::getType()
 }
 
 }
+#else
+int HuffmanSequenceDummySymbol;
+#endif

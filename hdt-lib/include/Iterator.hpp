@@ -29,14 +29,14 @@
  *
  */
 
-#ifndef ITERATOR_HPP_
-#define ITERATOR_HPP_
+#ifndef HDT_ITERATOR_HPP_
+#define HDT_ITERATOR_HPP_
+
+#include "SingleTriple.hpp"
 
 #include <vector>
 #include <string>
 #include <fstream>
-
-#include <SingleTriple.hpp>
 
 namespace hdt {
 
@@ -55,11 +55,11 @@ public:
 		return 0;
 	}
 
-	virtual unsigned int getNumberOfElements() {
+    virtual size_t getNumberOfElements() {
 		return 0;
 	}
 
-	virtual void freeStr(unsigned char *ptr) {
+	virtual void freeStr(unsigned char* /*ptr*/) {
 
 	}
 };
@@ -67,7 +67,7 @@ public:
 class VectorIteratorUCharString : public IteratorUCharString {
 private:
 	std::vector<std::string> &vector;
-	unsigned int pos;
+    size_t pos;
 public:
 	VectorIteratorUCharString(std::vector<std::string> &vector) : vector(vector), pos(0) { }
 	virtual ~VectorIteratorUCharString() { }
@@ -81,13 +81,13 @@ public:
 	}
 };
 
-class FileteratorUCharString : public IteratorUCharString {
+class FileIteratorUCharString : public IteratorUCharString {
 private:
     std::ifstream in;
     std::string line;
 public:
-    FileteratorUCharString(std::string file) : in(file.c_str(), ios::binary) { }
-    virtual ~FileteratorUCharString() {
+    FileIteratorUCharString(std::string file) : in(file.c_str(), ios::binary) { }
+    virtual ~FileIteratorUCharString() {
         in.close();
     }
 
@@ -100,9 +100,6 @@ public:
         return (unsigned char*)line.c_str();
     }
 };
-
-
-
 
 class IteratorTripleID {
 public:
@@ -125,7 +122,7 @@ public:
 	}
 	virtual void goToStart() {
 	}
-	virtual unsigned int estimatedNumResults() {
+    virtual size_t estimatedNumResults() {
 		return 0;
 	}
 	virtual ResultEstimationType numResultEstimation() {
@@ -134,16 +131,16 @@ public:
 	virtual bool canGoTo() {
 		return false;
 	}
-	virtual void goTo(unsigned int pos) {
+	virtual void goTo(unsigned int /*pos*/) {
 	}
-	virtual bool findNextOccurrence(unsigned int value, unsigned char component) {
+	virtual bool findNextOccurrence(unsigned int /*value*/, unsigned char /*component*/) {
 		return false;
 	}
 	virtual TripleComponentOrder getOrder() {
 		return Unknown;
 	}
 
-    virtual bool isSorted(TripleComponentRole role) {
+    virtual bool isSorted(TripleComponentRole /*role*/) {
 	return false;
     }
 };
@@ -172,4 +169,4 @@ public:
 
 }
 
-#endif /* ITERATOR_HPP_ */
+#endif /* HDT_ITERATOR_HPP_ */

@@ -54,23 +54,10 @@ void help() {
 	//cout << "\t-v\tVerbose output" << endl;
 }
 
-class ConvertProgress : public ProgressListener {
-private:
-public:
-	virtual ~ConvertProgress() { }
-
-    void notifyProgress(float level, const char *section) {
-    	cout << section << ": " << level << " %";
-    	cout << "\r " << section << ": " << level << " %                      \r";
-		cout.flush();
-	}
-
-};
-
 int main(int argc, char **argv) {
 	string inputFile;
 	string outputFile;
-	bool verbose=false;
+	bool verbose=false; // NOTE: generates -Wunused-but-set-variable warning.
 	bool generateIndex=false;
 	string configFile;
 	string options;
@@ -154,7 +141,7 @@ int main(int argc, char **argv) {
 	}
 
 	// Process
-	ConvertProgress progress;
+	StdoutProgressListener progress;
 	HDTSpecification spec(configFile);
 
 	spec.setOptions(options);

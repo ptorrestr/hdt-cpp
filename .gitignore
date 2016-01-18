@@ -9,4 +9,29 @@ hdt-lib/tools/*
 hdt-lib/examples/*
 
 # Auto-generate CDS includes 
-libcds-v1.0.12/includes/*
+libcds-v1.0.12/includes
+
+# Others
+.DS_Store
+*.pro.user
+unix
+macx
+win32
+delete_me
+Makefile
+README
+autom4te.cache/
+config.h
+*~
+config.log
+config.status
+stamp-h1
+.deps/
+
+*.hdt
+*.hdt.index
+*.nt
+*.rdf
+**/examples/*
+**/tests/*
+**/tools/*

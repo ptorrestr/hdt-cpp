@@ -54,6 +54,11 @@ public:
 	PlainTriples(HDTSpecification &spec);
 	~PlainTriples();
 
+
+    bool isIndexed() {
+        return false;
+    }
+
 	/**
 	 * Returns a vector of triples matching the pattern
 	 *
@@ -77,7 +82,7 @@ public:
 	 *
 	 * @return
 	 */
-	unsigned int getNumberOfElements();
+    size_t getNumberOfElements();
 
     size_t size();
 
@@ -120,9 +125,9 @@ public:
 class PlainTriplesIterator : public IteratorTripleID {
 private:
 	TripleID pattern, returnTriple;
-	TripleComponentOrder order;
+	//TripleComponentOrder order;
 	PlainTriples *triples;
-	int64_t pos;
+	uint64_t pos;
 
 	void updateOutput();
 public:

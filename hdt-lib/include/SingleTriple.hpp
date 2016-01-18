@@ -29,19 +29,18 @@
  *
  */
 
-#ifndef SINGLETRIPLE_HPP_
-#define SINGLETRIPLE_HPP_
+#ifndef HDT_SINGLETRIPLE_HPP_
+#define HDT_SINGLETRIPLE_HPP_
+
+#include "HDTEnums.hpp"
 
 #include <iostream>
 #include <string>
 #include <vector>
 
-#include <HDTEnums.hpp>
-
 using namespace std;
 
 namespace hdt {
-
 
 #define IS_VARIABLE(a) ( (a).size()>0 && (a).at(0)=='?')
 #define IS_URI(a) ( (a).size()>0 && (a).at(0)!='<' && (a).at(0)!='_')
@@ -225,7 +224,7 @@ public:
 		unsigned int predicate = pattern.getPredicate();
                 unsigned int object = pattern.getObject();
 
-		if (subject == 0 || subject == this->subject) {                    
+		if (subject == 0 || subject == this->subject) {
                     if (predicate == 0 || predicate == this->predicate) {
                         if (object == 0 || object == this->object) {
                             return true;
@@ -518,10 +517,10 @@ public:
 	unsigned int getNumVars() {
 	    return 0;
 	}
-	string getVar(unsigned int numvar) {
+	string getVar(unsigned int /*numvar*/) {
 	    throw "No such variable";
 	}
-	const char *getVarName(unsigned int numvar) {
+	const char *getVarName(unsigned int /*numvar*/) {
 	    throw "No such variable";
 	}
 	unsigned int estimatedNumResults() {
@@ -534,4 +533,4 @@ public:
 
 }
 
-#endif /* SINGLETRIPLE_HPP_ */
+#endif /* HDT_SINGLETRIPLE_HPP_ */

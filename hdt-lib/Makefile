@@ -9,40 +9,52 @@ LIBCDSPATH = ../libcds-v1.0.12
 #SERD_SUPPORT=true
 
 CPP=g++
-FLAGS=-O3 -Wno-deprecated -fPIC
+#FLAGS=-O3 -Wno-deprecated -fPIC
+#INCLUDES=-I $(LIBCDSPATH)/includes/ -I /usr/local/include -I ./include -I /opt/local/include -I /usr/include
+#LDFLAGS=
+#DOXYGEN=doxygen
+#DEFINES=
+#LIB=$(LIBCDSPATH)/lib/libcds.a -L/usr/local/lib -lstdc++ -lgomp
+
+ifeq ($(CPP), g++)
+FLAGS=-O3 -Wno-deprecated -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare -Wno-unused-but-set-variable
+else
+FLAGS=-O3 -Wno-deprecated -Wall -Wextra -Wno-unused-parameter -Wno-sign-compare
+endif
+
 INCLUDES=-I $(LIBCDSPATH)/includes/ -I /usr/local/include -I ./include -I /opt/local/include -I /usr/include
 LDFLAGS=
 DOXYGEN=doxygen
-DEFINES=
-LIB=$(LIBCDSPATH)/lib/libcds.a -L/usr/local/lib -lstdc++ -lgomp
+DEFINES= -DHAVE_CDS
+LIB=$(LIBCDSPATH)/lib/libcds.a -L/usr/local/lib -lstdc++
 
 ifeq ($(RAPTOR_SUPPORT), true)
-DEFINES:=$(DEFINES) -DUSE_RAPTOR
+DEFINES:=$(DEFINES) -DHAVE_RAPTOR
 LIB:=$(LIB) -lraptor2
 endif
 
 ifeq ($(KYOTO_SUPPORT), true)
-DEFINES:=$(DEFINES) -DUSE_KYOTO
+DEFINES:=$(DEFINES) -DHAVE_KYOTO
 LIB:=$(LIB) -lkyotocabinet
 endif
 
 ifeq ($(LIBZ_SUPPORT), true)
-DEFINES:=$(DEFINES) -DUSE_LIBZ
+DEFINES:=$(DEFINES) -DHAVE_LIBZ
 LIB:=$(LIB) -lz
 endif
 
 ifeq ($(SERD_SUPPORT), true)
-DEFINES:=$(DEFINES) -DUSE_SERD
+DEFINES:=$(DEFINES) -DHAVE_SERD
 LIB:=$(LIB) -lserd-0
 endif
 
 ifeq ($(OS), Darwin)
 CPP=clang++
-FLAGS:=$(FLAGS) -arch x86_64 #-msse4.2 
+FLAGS:=$(FLAGS) -arch x86_64
 endif
 
 ifeq ($(CPP), g++)
-FLAGS:=$(FLAGS) -fopenmp
+FLAGS:=$(FLAGS) #-fopenmp
 endif
 
 SRCS=$(wildcard src/*.cpp) $(wildcard src/**/*.cpp) $(wildcard src/**/**/*.cpp)
@@ -56,7 +68,8 @@ EXAMPLES=$(patsubst %.cpp,%, $(wildcard examples/*.cpp))
 all:
 	@$(MAKE) showflags 
 	@$(MAKE) -C $(LIBCDSPATH)
-	@$(MAKE) tools examples
+	@$(MAKE) tools tests/jointest
+	#@$(MAKE) tests examples
 
 re:
 	@$(MAKE) clean

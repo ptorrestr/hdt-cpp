@@ -31,6 +31,8 @@
  *   Miguel A. Martinez-Prieto:  migumar2@infor.uva.es
  */
 
+#if HAVE_CDS
+
 #include <HDTListener.hpp>
 
 #include "CSD_FMIndex.h"
@@ -57,12 +59,12 @@ CSD_FMIndex::CSD_FMIndex(hdt::IteratorUCharString *it, bool sparse_bitsequence, 
 	size_t len = 0;
 	size_t reservedSize = 1024;
 	text = (unsigned char*) malloc(reservedSize * sizeof(unsigned char));
-	std:vector < size_t > samplingsPositions;
+	std::vector < size_t > samplingsPositions;
 
 	text[0] = '\1'; //We suppose that \1 is not part of the text
 	maxlength = 0;
 	numstrings = 0;
-	uint m_l = 0;
+	//uint m_l = 0;
 
 	size_t total = 1;
 
@@ -129,9 +131,9 @@ CSD_FMIndex::CSD_FMIndex(hdt::IteratorUCharString *it, bool sparse_bitsequence, 
 	if (use_sample) {
 		 bitmap = new uint[(total + 1 + W) / W];
 		 memset((void*)bitmap, 0, 4*((total + 1 + W) / W));
-		 bitset(bitmap, 0);
+		 cds_utils::bitset(bitmap, 0);
 		 for (size_t i=0;i<samplingsPositions.size();i++){
-			 bitset(bitmap, samplingsPositions[i]);
+			 cds_utils::bitset(bitmap, samplingsPositions[i]);
 		 }
 	}
 //	cout<<"testing:len:"<<len<<endl;
@@ -194,30 +196,37 @@ uint32_t CSD_FMIndex::locate(const unsigned char *s, uint32_t len) {
 }
 
 uint32_t CSD_FMIndex::locate_substring(unsigned char *s, uint32_t len, uint32_t **occs) {
+    uint dummy;
+    return this->locate_substring(s, len, 0, 0, true, occs, &dummy);
+}
+
+uint32_t CSD_FMIndex::locate_substring(unsigned char *s, uint32_t len, uint offset, uint limit, bool deduplicate, uint32_t **occs, uint* num_occ) {
 	if (!use_sampling) {
 		*occs = NULL;
 		return 0;
 	}
-	uint num_occ, i;
+	uint matches, i;
 	uint32_t res = 0;
 	uint32_t temp;
-	num_occ = fm_index->locate(s, (uint) len, occs);
-	if (num_occ == 0) {
-		*occs = NULL;
-		return 0;
-	}
-	quicksort((*occs), 0, num_occ - 1);
-	i = 1;
-	(*occs)[res] = separators->rank1((*occs)[0]);
-	while (i < num_occ) {
-		temp = separators->rank1((*occs)[i]);
-		if (temp != (*occs)[res]) {
-			(*occs)[res + 1] = temp;
-			res++;
+	matches = fm_index->locate(s, (uint) len, offset, limit, occs, num_occ);
+	if (*num_occ > 0) {
+		// TODO: another reason not to combine limit/offset with deduplicate
+		if (deduplicate)
+			quicksort((*occs), 0, *num_occ - 1);
+		i = 1;
+		(*occs)[res] = separators->rank1((*occs)[0]);
+		// TODO: combining limit/offset and deduplicate will give wrong results
+		while (i < *num_occ) {
+			temp = separators->rank1((*occs)[i]);
+			if (!deduplicate || temp != (*occs)[res]) {
+				(*occs)[res + 1] = temp;
+				res++;
+			}
+			i++;
 		}
-		i++;
+		*num_occ = res + 1;
 	}
-	return res + 1;
+	return matches;
 }
 
 unsigned char * CSD_FMIndex::extract(uint32_t id) {
@@ -283,7 +292,7 @@ size_t CSD_FMIndex::load(unsigned char *ptr, unsigned char *ptrMax)
     std::stringstream localStream;
     localStream.rdbuf()->pubsetbuf((char*)ptr, ptrMax-ptr);
 
-    unsigned char type = localStream.get(); // Load expects the type already read.
+    //unsigned char type = localStream.get(); // Load expects the type already read.
 
     this->type = FMINDEX;
     this->numstrings = loadValue<uint32_t>(localStream);
@@ -356,7 +365,7 @@ void csd::CSD_FMIndex::fillSuggestions(const char *base,
         vector<std::string> &out, int maxResults) {
     size_t len = strlen(base);
     unsigned char *n_s = new unsigned char[len + 1];
-    uint o;
+    //uint o;
     n_s[0] = '\1';
     for (uint32_t i = 1; i <= len; i++)
         n_s[i] = base[i - 1];
@@ -372,3 +381,6 @@ void csd::CSD_FMIndex::fillSuggestions(const char *base,
 }
 
 }
+#else
+int FMIndexDummySymbol;
+#endif

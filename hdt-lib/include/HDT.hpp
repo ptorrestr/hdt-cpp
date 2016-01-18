@@ -29,25 +29,23 @@
  *
  */
 
+#ifndef HDT_HDT_HPP_
+#define HDT_HDT_HPP_
 
-#ifndef HDT_
-#define HDT_
-
-#include <RDF.hpp>
-#include <HDTSpecification.hpp>
-#include <HDTEnums.hpp>
-#include <HDTListener.hpp>
-#include <Header.hpp>
-#include <Dictionary.hpp>
-#include <Triples.hpp>
-#include <RDFParser.hpp>
-#include <RDFSerializer.hpp>
+#include "RDF.hpp"
+#include "HDTSpecification.hpp"
+#include "HDTEnums.hpp"
+#include "HDTListener.hpp"
+#include "Header.hpp"
+#include "Dictionary.hpp"
+#include "Triples.hpp"
+#include "RDFParser.hpp"
+#include "RDFSerializer.hpp"
 
 #include <iostream>
 #include <set>
 
 namespace hdt {
-
 
 /**
  * Main HDT class. Represents an abstract access to a HDT object.
@@ -57,7 +55,6 @@ namespace hdt {
 class HDT : public RDFAccess
 {
 public:
-
 	virtual ~HDT() { };
 
 	/**
@@ -110,8 +107,9 @@ public:
     IteratorTripleString *search(TripleString &pattern) {
         return search(pattern.getSubject().c_str(), pattern.getPredicate().c_str(), pattern.getObject().c_str());
     }
-};
 
+    virtual bool isIndexed()=0;
+};
 
 /**
  * ModifiableHDT is a HDT that provides read/write operations. In addition to read operations,
@@ -119,7 +117,6 @@ public:
  */
 class ModifiableHDT : public HDT {
 public:
-
 	virtual ~ModifiableHDT(){ }
 
 	/**
@@ -146,8 +143,9 @@ public:
 	 * @param triples
 	 */
 	virtual void remove(IteratorTripleString *triples) = 0;
+
 };
 
 }
 
-#endif /* HDT_ */
+#endif /* HDT_HDT_HPP_ */

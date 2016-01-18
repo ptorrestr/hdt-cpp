@@ -29,18 +29,16 @@
  *
  */
 
+#ifndef HDT_RDFPARSER_HPP_
+#define HDT_RDFPARSER_HPP_
 
-#ifndef RDFPARSER_H_
-#define RDFPARSER_H_
+#include "SingleTriple.hpp"
+#include "Iterator.hpp"
+#include "HDTEnums.hpp"
 
 #include <string>
 #include <istream>
 #include <stdint.h>
-
-#include <SingleTriple.hpp>
-#include <Iterator.hpp>
-#include <HDTEnums.hpp>
-
 
 namespace hdt {
 
@@ -55,7 +53,7 @@ class RDFParserCallback {
 public:
 	virtual ~RDFParserCallback() { }
 
-	virtual void doParse(const char *fileName, const char *baseUri, RDFNotation notation, RDFCallback *callback)=0;
+    virtual void doParse(const char *fileName, const char *baseUri, RDFNotation notation, bool ignoreErrors, RDFCallback *callback)=0;
 
 	static RDFParserCallback *getParserCallback(RDFNotation notation);
 };
@@ -79,6 +77,30 @@ public:
 	static RDFParserPull *getParserPull(std::istream &stream, RDFNotation notation);
 };
 
+class ParseException: public exception {
+protected:
+    uint64_t byte;
+    uint64_t line;
+    uint32_t column;
+    string reason;
+public:
+    ParseException(uint64_t byte, uint64_t line, uint32_t column, string reason) :
+        byte(byte),
+        line(line),
+        column(column),
+        reason(reason) {
+
+    }
+
+    /** Returns a C-style character string describing the general cause
+     *  of the current error.  */
+    virtual const char* what() const throw() {
+        return reason.c_str();
+    }
+
+    virtual ~ParseException() throw() {}
+};
+
 }
 
-#endif /* RDFPARSER_H_ */
+#endif /* HDT_RDFPARSER_HPP_ */
