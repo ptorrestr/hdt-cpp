@@ -1,2 +1,2 @@
-SUBDIRS = hdt-lib
-dist_doct_DATA = README.md
+SUBDIRS = libcds-v1.0.12 hdt-lib
+ACLOCAL_AMFLAGS = -I m4

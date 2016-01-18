@@ -3,6 +3,8 @@
 *.so
 *.a
 *.out
+*.lo
+*.la
 
 # Executables
 hdt-lib/tools/*
