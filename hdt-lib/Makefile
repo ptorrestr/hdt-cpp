@@ -399,7 +399,7 @@ third/gzstream.cpp \
 src/rdf/RDFParserNtriplesCallback.cpp \
 src/triples/predicateindex.cpp
 
-libhdt_la_CPPFLAGS = -I$(builddir)/include
+libhdt_la_CPPFLAGS = -I$(builddir)/include -I$(top_builddir)/libcds-v1.0.12/includes -DHAVE_CDS
 hdt2rdf_SOURCES = tools/hdt2rdf.cpp
 hdt2rdf_CPPFLAGS = -I$(builddir)/include
 hdt2rdf_LDADD = libhdt.la

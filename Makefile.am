@@ -1,2 +1,2 @@
-SUBDIRS = libcds-v1.0.12 hdt-lib
+SUBDIRS = hdt-lib
 ACLOCAL_AMFLAGS = -I m4

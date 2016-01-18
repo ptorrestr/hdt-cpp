@@ -8,6 +8,5 @@ AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([
   Makefile
   hdt-lib/Makefile
-  libcds-v1.0.12/Makefile
 ])
 AC_OUTPUT
