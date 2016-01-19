@@ -39,10 +39,10 @@
 #include "CSD.h"
 
 #include <Iterator.hpp>
-#include <SequenceBuilder.h>
-#include <Sequence.h>
-#include <BitSequenceBuilder.h>
-#include <BitSequence.h>
+#include <cds/SequenceBuilder.h>
+#include <cds/Sequence.h>
+#include <cds/BitSequenceBuilder.h>
+#include <cds/BitSequence.h>
 #include "fmindex/SSA.h"
 
 #include <set>

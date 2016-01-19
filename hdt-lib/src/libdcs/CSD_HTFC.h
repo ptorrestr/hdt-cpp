@@ -38,8 +38,8 @@
 
 using namespace std;
 
-#include <Array.h>
-#include <libcdsBasics.h>
+#include <cds/Array.h>
+#include <cds/libcdsBasics.h>
 using namespace cds_utils;
 
 #include <Iterator.hpp>

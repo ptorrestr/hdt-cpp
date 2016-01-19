@@ -34,7 +34,7 @@
 
 #include "IntSequence.hpp"
 
-#include <Array.h>
+#include <cds/Array.h>
 
 namespace hdt {
 

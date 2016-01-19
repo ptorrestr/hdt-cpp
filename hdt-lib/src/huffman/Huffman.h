@@ -22,9 +22,9 @@
 #ifndef HUFFMAN_H
 #define HUFFMAN_H
 
-#include <libcdsBasics.h>
+#include <cds/libcdsBasics.h>
 #include "huff.h"
-#include <Array.h>
+#include <cds/Array.h>
 
 using namespace cds_utils;
 

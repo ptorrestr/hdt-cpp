@@ -34,12 +34,12 @@
 #ifndef SSA_WORDS_H
 #define SSA_WORDS_H
 
-#include <SequenceBuilder.h>
-#include <Sequence.h>
-#include <BitSequenceBuilder.h>
-#include <BitSequence.h>
+#include <cds/SequenceBuilder.h>
+#include <cds/Sequence.h>
+#include <cds/BitSequenceBuilder.h>
+#include <cds/BitSequence.h>
 
-#include <Mapper.h>
+#include <cds/Mapper.h>
 #include <algorithm>
 
 #include "SuffixArray.h"

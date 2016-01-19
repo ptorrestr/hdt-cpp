@@ -38,7 +38,7 @@
 #include "CSD_HTFC.h"
 #include "CSD_FMIndex.h"
 
-#include <libcdsBasics.h>
+#include <cds/libcdsBasics.h>
 
 using namespace cds_utils;
 

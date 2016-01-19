@@ -67,7 +67,8 @@ third/gzstream.cpp \
 src/rdf/RDFParserNtriplesCallback.cpp \
 src/triples/predicateindex.cpp
  
-libhdt_la_CPPFLAGS = -I$(builddir)/include
+libhdt_la_CPPFLAGS = -I$(builddir)/include $(LIBCDS_HDR) $(LIBCDS_CFLAGS)
+libhdt_la_LIBADD = $(LIBCDS_LIB)
 
 bin_PROGRAMS = hdt2rdf hdtInfo hdtSearch rdf2hdt replaceHeader
 hdt2rdf_SOURCES = tools/hdt2rdf.cpp

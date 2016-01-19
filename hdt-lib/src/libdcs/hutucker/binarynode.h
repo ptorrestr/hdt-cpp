@@ -7,8 +7,8 @@
 #ifndef BINARYTRIE_H_INCLUDED
 #define BINARYTRIE_H_INCLUDED
 
-#include <BitString.h>
-#include <libcdsBasics.h>
+#include <cds/BitString.h>
+#include <cds/libcdsBasics.h>
 using namespace cds_utils;
 
 #include<iostream>

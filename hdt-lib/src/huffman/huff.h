@@ -22,8 +22,8 @@
 #ifndef HUFF_H
 #define HUFF_H
 
-#include <libcdsBasics.h>
-#include <cppUtils.h>
+#include <cds/libcdsBasics.h>
+#include <cds/cppUtils.h>
 
 using namespace cds_utils;
 

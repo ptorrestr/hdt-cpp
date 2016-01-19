@@ -36,7 +36,7 @@
 
 #include "IntSequence.hpp"
 
-#include <WaveletTreeNoptrs.h>
+#include <cds/WaveletTreeNoptrs.h>
 
 namespace hdt {
 
