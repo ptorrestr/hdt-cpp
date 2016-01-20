@@ -67,28 +67,28 @@ third/gzstream.cpp \
 src/rdf/RDFParserNtriplesCallback.cpp \
 src/triples/predicateindex.cpp
  
-libhdt_la_CPPFLAGS = -I$(builddir)/include $(LIBCDS_HDR) $(LIBCDS_CFLAGS)
-libhdt_la_LIBADD = $(LIBCDS_LIB)
+libhdt_la_CPPFLAGS = -I$(builddir)/include $(LIBCDS_HDR) $(LIBCDS_CFLAGS) $(RAPTOR2_HDR) $(RAPTOR2_CFLAGS) $(SERD_HDR) $(SERD_CFLAGS) $(ZLIB_CFLAGS)
+libhdt_la_LIBADD = $(LIBCDS_LIB) $(RAPTOR2_LIB) $(SERD_LIB) $(ZLIB_LIB)
 
 bin_PROGRAMS = hdt2rdf hdtInfo hdtSearch rdf2hdt replaceHeader
 hdt2rdf_SOURCES = tools/hdt2rdf.cpp
 hdt2rdf_CPPFLAGS = -I$(builddir)/include
-hdt2rdf_LDADD = libhdt.la
+hdt2rdf_LDADD = libhdt.la $(LIBCDS_LIB) $(RAPTOR2_LIB) $(SERD_LIB)
 
 hdtInfo_SOURCES = tools/hdtInfo.cpp
 hdtInfo_CPPFLAGS = -I$(builddir)/include
-hdtInfo_LDADD = libhdt.la
+hdtInfo_LDADD = libhdt.la $(LIBCDS_LIB) $(RAPTOR2_LIB) $(SERD_LIB)
 
 hdtSearch_SOURCES = tools/hdtSearch.cpp
 hdtSearch_CPPFLAGS = -I$(builddir)/include
-hdtSearch_LDADD = libhdt.la
+hdtSearch_LDADD = libhdt.la $(LIBCDS_LIB) $(RAPTOR2_LIB) $(SERD_LIB)
 
 rdf2hdt_SOURCES = tools/rdf2hdt.cpp
 rdf2hdt_CPPFLAGS = -I$(builddir)/include
-rdf2hdt_LDADD = libhdt.la
+rdf2hdt_LDADD = libhdt.la $(LIBCDS_LIB) $(RAPTOR2_LIB) $(SERD_LIB)
 
 replaceHeader_SOURCES = tools/replaceHeader.cpp
 replaceHeader_CPPFLAGS = -I$(builddir)/include
-replaceHeader_LDADD = libhdt.la
+replaceHeader_LDADD = libhdt.la $(LIBCDS_LIB) $(RAPTOR2_LIB) $(SERD_LIB)
 
 pkginclude_HEADERS = include/*

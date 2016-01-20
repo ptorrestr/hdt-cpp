@@ -1,3 +1,6 @@
+# Clean autotools file
+`git clean -f -d -x`
+
 # C++ library for the HDT triple format
 HDT keeps big RDF datasets compressed while maintaining efficient search and browse operations.
 
