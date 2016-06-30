@@ -51,3 +51,8 @@ Extract the Header of an HDT file:
 Replace the Header of an HDT file with a new one. For example, by editing the existing one as extracted using `hdtInfo`:
 
     $ tools/replaceHeader data/test.hdt data/testOutput.hdt newHeader.nt
+
+## Development
+
+Generate autoconf files:
+``make m4 && autoreconf --install``
