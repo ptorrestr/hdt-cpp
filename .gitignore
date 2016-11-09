@@ -18,7 +18,12 @@ autom4te.cache
 config.log
 config.h
 config.status
+configure
 Makefile
+Makefile.in
+aclocal.m4
+
+
 
 # Others
 .DS_Store
