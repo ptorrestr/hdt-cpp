@@ -14,9 +14,11 @@ hdt-lib/.libs
 # Autotools 
 build
 m4
-
-# Auto-generate CDS includes 
-libcds-v1.0.12/includes
+autom4te.cache
+config.log
+config.h
+config.status
+Makefile
 
 # Others
 .DS_Store
@@ -26,13 +28,8 @@ unix
 macx
 win32
 delete_me
-Makefile
 README
-autom4te.cache/
-config.h
 *~
-config.log
-config.status
 stamp-h1
 .deps/
 
