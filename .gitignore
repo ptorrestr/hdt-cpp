@@ -11,11 +11,16 @@ hdt-lib/tools/*
 hdt-lib/examples/*
 hdt-lib/.libs
 
+# Autotools 
+build
+m4
+
 # Auto-generate CDS includes 
 libcds-v1.0.12/includes
 
 # Others
 .DS_Store
+*.dirstamp
 *.pro.user
 unix
 macx
