@@ -9,6 +9,7 @@
 # Executables
 hdt-lib/tools/*
 hdt-lib/examples/*
+hdt-lib/.libs
 
 # Auto-generate CDS includes 
 libcds-v1.0.12/includes
