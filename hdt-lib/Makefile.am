@@ -1,3 +1,5 @@
+AUTOMAKE_OPTIONS = subdir-objects
+
 lib_LTLIBRARIES = libhdt.la
 libhdt_la_SOURCES = \
 src/hdt/HDTSpecification.cpp \

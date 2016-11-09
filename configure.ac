@@ -2,7 +2,6 @@ AC_INIT([hdt], [1.1.2], [pablo.torres@insight-centre.com])
 AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_AUX_DIR([build])
 AC_CONFIG_HEADERS([build/config.h])
-LT_INIT([shared static])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 #AM_SILENT_RULES([yes])
 
@@ -10,6 +9,8 @@ AC_PROG_CXX
 AC_LANG([C++])
 AC_PROG_INSTALL
 AC_PROG_CPP
+AM_PROG_AR
+LT_INIT([shared static])
 
 # Checks for libraries
 AC_ARG_WITH([libcds-prefix], 
